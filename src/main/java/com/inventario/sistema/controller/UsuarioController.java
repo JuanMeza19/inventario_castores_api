@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/public/usuarios")
+@RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
@@ -23,14 +23,14 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioResponseDTO>> getAllUsuarios() {
         List<UsuarioResponseDTO> usuarios = usuarioService.getAllUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR') or #id == authentication.principal.id")
     public ResponseEntity<UsuarioResponseDTO> getUsuarioById(@PathVariable Long id) {
         try {
             UsuarioResponseDTO usuario = usuarioService.getUsuarioById(id);
@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/username/{username}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER') or #username == authentication.principal.username")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR') or #username == authentication.principal.username")
     public ResponseEntity<UsuarioResponseDTO> getUsuarioByUsername(@PathVariable String username) {
         try {
             UsuarioResponseDTO usuario = usuarioService.getUsuarioByUsername(username);
@@ -52,7 +52,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<?> createUsuario(@Valid @RequestBody UsuarioCreateDTO usuarioCreateDTO) {
         try {
             UsuarioResponseDTO usuario = usuarioService.createUsuario(usuarioCreateDTO);
@@ -65,7 +65,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR') or #id == authentication.principal.id")
     public ResponseEntity<?> updateUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioCreateDTO usuarioCreateDTO) {
         try {
             UsuarioResponseDTO usuario = usuarioService.updateUsuario(id, usuarioCreateDTO);
@@ -78,7 +78,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> deleteUsuario(@PathVariable Long id) {
         try {
             usuarioService.deleteUsuario(id);
@@ -93,7 +93,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/{id}/activate")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> activateUsuario(@PathVariable Long id) {
         try {
             usuarioService.activateUsuario(id);
@@ -108,14 +108,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/rol/{nombreRol}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioResponseDTO>> getUsuariosByRol(@PathVariable String nombreRol) {
         List<UsuarioResponseDTO> usuarios = usuarioService.getUsuariosByRol(nombreRol);
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/exists/username/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, Boolean>> existsByUsername(@PathVariable String username) {
         boolean exists = usuarioService.existsByUsername(username);
         Map<String, Boolean> response = new HashMap<>();
@@ -124,7 +124,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/exists/email/{email}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, Boolean>> existsByEmail(@PathVariable String email) {
         boolean exists = usuarioService.existsByEmail(email);
         Map<String, Boolean> response = new HashMap<>();
