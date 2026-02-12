@@ -23,3 +23,6 @@ INSERT INTO `castores_db`.`usuarios` (
 ) VALUES 
 (1, 1, 'juan@ejemplo.com', '2026-02-10 02:00:03.572887', '2026-02-12 06:10:51.131859', 'Juan Pérez', '$2a$10$oHSL3mlAiT4d06Z6TCS9X.D6S3.4wmGKn9a6fR1MMJ6EJD1vIxDV6', '2026-02-12 06:10:51.131022', 'juanperez', 1),
 (2, 1, 'osvaldo@ejemplo.com', '2026-02-12 06:16:27.012811', '2026-02-12 06:16:27.012817', 'Juan Pérez', '$2a$10$65aYXfjJiqvXS/vuOW/AIejcF9xCmqzReUI5UsW9g85CHid7/m5pe', NULL, 'Osvaldo', 2);
+
+
+( contra: password123 )
