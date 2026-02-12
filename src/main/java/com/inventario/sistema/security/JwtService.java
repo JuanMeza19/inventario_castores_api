@@ -22,7 +22,10 @@ public class JwtService {
     private Long expiration;
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+        byte[] keyBytes = secret.length() < 64 ? 
+            String.format("%-64s", secret).replace(' ', '0').getBytes() : 
+            secret.getBytes();
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String extractUsername(String token) {

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class MovimientoResponseDTO {
     
     private Long id;
+    private Long productoId;
     private String codigoProducto;
     private String nombreProducto;
     private String tipoMovimiento;
@@ -24,6 +25,14 @@ public class MovimientoResponseDTO {
     
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Long getProductoId() {
+        return productoId;
+    }
+    
+    public void setProductoId(Long productoId) {
+        this.productoId = productoId;
     }
     
     public String getCodigoProducto() {
@@ -104,5 +113,22 @@ public class MovimientoResponseDTO {
     
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+    
+    public static MovimientoResponseDTO fromEntity(com.inventario.sistema.entity.MovimientoInventario movimiento) {
+        MovimientoResponseDTO dto = new MovimientoResponseDTO();
+        dto.setId(movimiento.getId());
+        dto.setProductoId(movimiento.getProducto().getId());
+        dto.setCodigoProducto(movimiento.getProducto().getCodigoProducto());
+        dto.setNombreProducto(movimiento.getProducto().getNombreProducto());
+        dto.setTipoMovimiento(movimiento.getTipoMovimiento().getNombreTipo());
+        dto.setCantidad(movimiento.getCantidad());
+        dto.setCantidadAnterior(movimiento.getCantidadAnterior());
+        dto.setCantidadNueva(movimiento.getCantidadNueva());
+        dto.setUsuario(movimiento.getUsuario().getNombreCompleto());
+        dto.setFechaMovimiento(movimiento.getFechaMovimiento());
+        dto.setObservaciones(movimiento.getObservaciones());
+        dto.setReferencia(movimiento.getReferencia());
+        return dto;
     }
 }

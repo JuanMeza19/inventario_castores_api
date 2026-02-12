@@ -19,7 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
     boolean existsByEmail(String email);
     
-    @Query("SELECT u FROM Usuario u WHERE u.activo = true AND u.username = :username")
+    @Query("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.activo = true AND u.username = :username")
     Optional<Usuario> findUsuarioActivoByUsername(@Param("username") String username);
     
     @Query("SELECT u FROM Usuario u WHERE u.activo = true ORDER BY u.nombreCompleto")

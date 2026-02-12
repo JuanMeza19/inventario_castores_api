@@ -22,14 +22,14 @@ public class RolController {
     private RolService rolService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
     public ResponseEntity<List<Rol>> getAllRoles() {
         List<Rol> roles = rolService.getAllRoles();
         return ResponseEntity.ok(roles);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
     public ResponseEntity<Rol> getRolById(@PathVariable Long id) {
         try {
             Rol rol = rolService.getRolById(id);
@@ -40,7 +40,7 @@ public class RolController {
     }
 
     @GetMapping("/nombre/{nombreRol}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
     public ResponseEntity<Rol> getRolByNombreRol(@PathVariable String nombreRol) {
         try {
             Rol rol = rolService.getRolByNombreRol(nombreRol);
@@ -51,7 +51,7 @@ public class RolController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> createRol(@Valid @RequestBody Rol rol) {
         try {
             Rol newRol = rolService.createRol(rol);
@@ -64,7 +64,7 @@ public class RolController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> updateRol(@PathVariable Long id, @Valid @RequestBody Rol rolDetails) {
         try {
             Rol updatedRol = rolService.updateRol(id, rolDetails);
@@ -77,7 +77,7 @@ public class RolController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> deleteRol(@PathVariable Long id) {
         try {
             rolService.deleteRol(id);
@@ -92,7 +92,7 @@ public class RolController {
     }
 
     @PostMapping("/{id}/activate")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> activateRol(@PathVariable Long id) {
         try {
             rolService.activateRol(id);
@@ -107,7 +107,7 @@ public class RolController {
     }
 
     @GetMapping("/exists/{nombreRol}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
     public ResponseEntity<Map<String, Boolean>> existsByNombreRol(@PathVariable String nombreRol) {
         boolean exists = rolService.existsByNombreRol(nombreRol);
         Map<String, Boolean> response = new HashMap<>();
@@ -116,7 +116,7 @@ public class RolController {
     }
 
     @GetMapping("/activos")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'MANAGER')")
     public ResponseEntity<List<Rol>> getRolesActivos() {
         List<Rol> roles = rolService.getRolesActivos();
         return ResponseEntity.ok(roles);

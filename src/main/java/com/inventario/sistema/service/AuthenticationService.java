@@ -96,6 +96,12 @@ public class AuthenticationService {
     public String refreshToken(String token) {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
+            
+            // Validate the old token before issuing a new one
+            if (!jwtService.validateToken(token)) {
+                throw new RuntimeException("Token inválido o expirado");
+            }
+            
             String username = jwtService.extractUsername(token);
             
             Usuario usuario = usuarioRepository.findUsuarioActivoByUsername(username)
